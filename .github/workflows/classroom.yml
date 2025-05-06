@@ -13,24 +13,24 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    - name: Adivinhar Numero
+      id: adivinhar-numero
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Adivinhar Numero
+        setup-command: npm
+        command: npx jest adivinharNumero.test.js
+        timeout: 10
+        max-score: 1
     - name: Calcular
       id: calcular
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Calcular
-        setup-command: npm install
+        setup-command: ''
         command: npx jest calcular.test.js
         timeout: 10
         max-score: 2
-    - name: Adivinhar Número
-      id: adivinhar-numero
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Adivinhar Número
-        setup-command: ''
-        command: npx jest adivinharNumero.test.js
-        timeout: 10
-        max-score: 1
     - name: Calcular IMC
       id: calcular-imc
       uses: classroom-resources/autograding-command-grader@v1
@@ -88,8 +88,8 @@ jobs:
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        CALCULAR_RESULTS: "${{steps.calcular.outputs.result}}"
         ADIVINHAR-NUMERO_RESULTS: "${{steps.adivinhar-numero.outputs.result}}"
+        CALCULAR_RESULTS: "${{steps.calcular.outputs.result}}"
         CALCULAR-IMC_RESULTS: "${{steps.calcular-imc.outputs.result}}"
         CLASSIFICAR-NOTA_RESULTS: "${{steps.classificar-nota.outputs.result}}"
         CORRIGIR-VALOR_RESULTS: "${{steps.corrigir-valor.outputs.result}}"
@@ -97,4 +97,4 @@ jobs:
         SOMAR_RESULTS: "${{steps.somar.outputs.result}}"
         VERIFICAR-PALAVRA_RESULTS: "${{steps.verificar-palavra.outputs.result}}"
       with:
-        runners: calcular,adivinhar-numero,calcular-imc,classificar-nota,corrigir-valor,saudacao,somar,verificar-palavra
+        runners: adivinhar-numero,calcular,calcular-imc,classificar-nota,corrigir-valor,saudacao,somar,verificar-palavra
